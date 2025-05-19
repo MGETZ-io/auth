@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Hustensaft Management</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f3f3f3;
+    }
+    .container {
+      max-width: 400px;
+      margin: 5vh auto;
+      padding: 40px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-top: 0;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      width: 100%;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .switch {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+      color: #0078d4;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .ms-theme {
+      display: block;
+    }
+    .ms-theme h2 {
+      color: #0078d4;
+    }
+    .ms-theme button {
+      background-color: #0078d4;
+      color: white;
+    }
+
+    .creator-theme {
+      display: none;
+    }
+    .creator-theme h2 {
+      color: #f57c00;
+    }
+    .creator-theme button {
+      background-color: #f57c00;
+      color: white;
+    }
+    .creator-theme .switch {
+      color: #f57c00;
+    }
+
+    .logo {
+      width: 100px;
+      margin-bottom: 20px;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hustensaft Management Login -->
+  <div class="container ms-theme" id="msLogin">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Microsoft_365_logo.svg" alt="Logo" class="logo" />
+    <h2>Hustensaft Management</h2>
+    <label for="ms-email">E-Mail-Adresse</label>
+    <input type="email" id="ms-email" placeholder="z. B. maxim@hustensaft.org" />
+    <label for="ms-password">Passwort</label>
+    <input type="password" id="ms-password" placeholder="Passwort eingeben" />
+    <div class="error" id="ms-error"></div>
+    <button onclick="loginMS()">Anmelden</button>
+    <div class="switch" onclick="switchLogin()">Mit Creator One anmelden</div>
+  </div>
+
+  <!-- Creator One Login -->
+  <div class="container creator-theme" id="creatorLogin">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Orange_logo.svg/2560px-Orange_logo.svg.png" alt="Logo" class="logo" />
+    <h2>Creator One Login</h2>
+    <label for="creator-user">Benutzername oder E-Mail</label>
+    <input type="text" id="creator-user" placeholder="z. B. creator1 oder user@creator.one" />
+    <label for="creator-pass">Passwort</label>
+    <input type="password" id="creator-pass" placeholder="Passwort eingeben" />
+    <div class="error" id="creator-error"></div>
+    <button onclick="loginCreator()">Login</button>
+    <div class="switch" onclick="switchLogin()">Zurück zu Hustensaft Management</div>
+  </div>
+
+  <script>
+    function switchLogin() {
+      const ms = document.getElementById('msLogin');
+      const creator = document.getElementById('creatorLogin');
+      ms.style.display = ms.style.display === 'none' ? 'block' : 'none';
+      creator.style.display = creator.style.display === 'none' ? 'block' : 'none';
+
+      document.getElementById('ms-error').innerText = '';
+      document.getElementById('creator-error').innerText = '';
+    }
+
+    const msAccounts = [
+      { email: "maxim@hustensaft.org", password: "admin123" },
+      { email: "support@hustensaft.org", password: "helpme456" },
+    ];
+
+    const creatorAccounts = [
+      { user: "creator1", password: "orange123" },
+      { user: "user@creator.one", password: "oneaccess" },
+    ];
+
+    function loginMS() {
+      const email = document.getElementById('ms-email').value.trim();
+      const password = document.getElementById('ms-password').value;
+      const error = document.getElementById('ms-error');
+
+      const match = msAccounts.find(acc => acc.email === email && acc.password === password);
+      if (match) {
+        alert("Erfolgreich bei Hustensaft Management eingeloggt!");
+      } else {
+        error.innerText = "Falsche E-Mail oder falsches Passwort.";
+      }
+    }
+
+    function loginCreator() {
+      const user = document.getElementById('creator-user').value.trim();
+      const password = document.getElementById('creator-pass').value;
+      const error = document.getElementById('creator-error');
+
+      const match = creatorAccounts.find(acc => acc.user === user && acc.password === password);
+      if (match) {
+        alert("Erfolgreich bei Creator One eingeloggt!");
+      } else {
+        error.innerText = "Falscher Benutzername oder Passwort.";
+      }
+    }
+  </script>
+</body>
+</html>
