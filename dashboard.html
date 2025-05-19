@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Creator Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 40px;
+      background: #0d0d0d;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    h1 {
+      color: #a259ff;
+    }
+    .error {
+      color: red;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="content"></div>
+
+  <script>
+    const validUsers = [
+      { user: "creator1", pass: "orange123" },
+      { user: "partner2", pass: "secret456" }
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get("user");
+    const pass = params.get("pass");
+
+    const container = document.getElementById("content");
+    const match = validUsers.find(a => a.user === user && a.pass === pass);
+
+    if (match) {
+      container.innerHTML = `<h1>Willkommen, ${user}!</h1><p>Dies ist dein Creator One Partner Dashboard.</p>`;
+    } else {
+      container.innerHTML = `<p class="error">Zugriff verweigert. Bitte melde dich erneut an.</p>`;
+    }
+  </script>
+</body>
+</html>
