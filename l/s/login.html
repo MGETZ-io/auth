@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HUstensaft-ID Login</title>
+<style>
+  body { font-family: Arial, sans-serif; padding: 20px; background: #fff8f0; }
+  .login-box, .auth-box {
+    max-width: 300px; margin: auto; background: #fff; padding: 20px;
+    border-radius: 8px; box-shadow: 0 0 10px #f08c00; margin-bottom: 40px;
+  }
+  input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 4px; border: 1px solid #ccc; }
+  button {
+    background: #f08c00; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px;
+    cursor: pointer; font-size: 16px;
+  }
+  button:hover { background: #d17600; }
+  .error { color: red; }
+  #auth-section { display: none; }
+  #auth-title { font-size: 1.2em; margin-bottom: 10px; }
+  #auth-desc { font-size: 0.95em; margin-bottom: 20px; color: #555; }
+</style>
+</head>
+<body>
+
+<div class="login-box" id="login-box">
+  <h2>Mit HUstensaft-ID anmelden</h2>
+  <input id="email" type="email" placeholder="E-Mail" required />
+  <input id="password" type="password" placeholder="Passwort" required />
+  <button onclick="login()">Anmelden</button>
+  <p id="message" class="error"></p>
+</div>
+
+<div class="auth-box" id="auth-section">
+  <div id="auth-title">Zugriffsanfrage</div>
+  <div id="auth-desc">Die Anwendung möchte auf deine Hustensaft-Daten zugreifen. Bitte bestätige die Autorisierung, um fortzufahren.</div>
+  <button onclick="authorize()">Autorisieren</button>
+</div>
+
+<script>
+  // Hardcoded Benutzer-Daten
+  const users = {
+    "maxim@hustensaft.org": "supergeheim",
+    "gast@hustensaft.org": "gast123"
+  };
+
+  function login() {
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const password = document.getElementById('password').value;
+    const message = document.getElementById('message');
+
+    if(users[email] && users[email] === password) {
+      message.textContent = "";
+      alert("Login erfolgreich! Bitte autorisiere jetzt.");
+      
+      // Login-Box deaktivieren
+      document.getElementById('login-box').style.opacity = "0.5";
+      document.getElementById('login-box').style.pointerEvents = "none";
+      
+      // Autorisierungsbereich einblenden
+      document.getElementById('auth-section').style.display = "block";
+      
+      // Runterscrollen zum Autorisieren-Abschnitt
+      document.getElementById('auth-section').scrollIntoView({behavior: "smooth"});
+      
+    } else {
+      message.textContent = "Falsche E-Mail oder Passwort!";
+    }
+  }
+
+  function authorize() {
+    // Nach Autorisierung weiterleiten
+    window.location.href = "https://roleplay.hustensaft.org/docs/startseite"; // Hier deine Zielseite anpassen
+  }
+</script>
+
+</body>
+</html>
